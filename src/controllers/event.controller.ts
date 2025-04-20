@@ -150,6 +150,14 @@ exports.getEventById = async (
             name: true,
           },
         },
+        tickets: {
+          select: {
+            id: true,
+            name: true,
+            price: true,
+            quantity: true,
+          },
+        },
       },
     });
 

@@ -3,7 +3,7 @@ CREATE TABLE "Ticket" (
     "id" SERIAL NOT NULL,
     "eventId" INTEGER NOT NULL,
     "name" TEXT NOT NULL,
-    "price" BIGINT NOT NULL,
+    "price" INTEGER NOT NULL,
     "quantity" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,

@@ -1,52 +1,49 @@
 import express from "express";
 import { Router } from "express";
 import checkRole from "../middlewares/checkRole";
-import upload from "../config/uploadImage";
 
 const router: Router = express.Router();
 const authenticateToken = require("../lib/authenticateToken");
-const eventController = require("../controllers/event.controller");
+const ticketController = require("../controllers/ticket.controller");
 
-// endpoint untuk membuat event
+// endpoint untuk membuat tiket
 router.post(
   "/",
   authenticateToken,
   checkRole(["admin"]),
-  upload.single("image"),
-  eventController.createEvent
+  ticketController.createTicket
 );
 
-// endpoint untuk mendapatkan semua event
+// endpoint untuk mendapatkan semua tiket
 router.get(
   "/",
   authenticateToken,
   checkRole(["admin"]),
-  eventController.getAllEvents
+  ticketController.getAllTickets
 );
 
-// endpoint untuk mendapatkan detail event berdasarkan ID
+// endpoint untuk mendapatkan detail tiket berdasarkan ID
 router.get(
   "/:id",
   authenticateToken,
   checkRole(["admin"]),
-  eventController.getEventById
+  ticketController.getTicketById
 );
 
-// endpoint untuk mengupdate event berdasarkan ID
+// endpoint untuk mengupdate tiket berdasarkan ID
 router.put(
   "/:id",
   authenticateToken,
   checkRole(["admin"]),
-  upload.single("image"),
-  eventController.updateEvent
+  ticketController.updateTicket
 );
 
-// endpoint untuk menghapus event berdasarkan ID
+// endpoint untuk menghapus tiket berdasarkan ID
 router.delete(
   "/:id",
   authenticateToken,
   checkRole(["admin"]),
-  eventController.deleteEvent
+  ticketController.deleteTicket
 );
 
 module.exports = router;
