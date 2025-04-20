@@ -21,10 +21,17 @@ router.get(
 );
 
 router.get(
-  "/:slug",
+  "/:id",
   authenticateToken,
   checkRole(["admin"]),
-  cityController.getCityBySlug
+  cityController.getCityById
+);
+
+router.put(
+  "/:id",
+  authenticateToken,
+  checkRole(["admin"]),
+  cityController.updateCity
 );
 
 router.delete(

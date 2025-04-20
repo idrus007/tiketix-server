@@ -1,6 +1,7 @@
 generator client {
   provider = "prisma-client-js"
   output   = "../node_modules/.prisma/client"
+  log      = ["query", "info", "warn", "error"]
 }
 
 datasource db {
@@ -8,25 +9,52 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Role {
-  admin
-  user
-}
-
 model User {
-  id        Int      @id @default(autoincrement())  
-  name      String   
-  email     String   @unique 
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
   password  String
   role      Role     @default(user)
-  createdAt DateTime @default(now())  
-  updatedAt DateTime @updatedAt 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model City {
-  id        Int @id @default(autoincrement())
-  name      String @unique
-  slug      String @unique
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  slug      String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  events    Event[]  @relation("CityEvents")
+}
+
+model Event {
+  id          Int      @id @default(autoincrement())
+  name        String
+  slug        String   @unique
+  image       String
+  description String
+  date        DateTime
+  location    String
+  cityId      Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  city        City     @relation("CityEvents", fields: [cityId], references: [id], onDelete: Cascade)
+  tickets     Ticket[] @relation("EventTickets")
+}
+
+model Ticket {
+  id        Int      @id @default(autoincrement())
+  eventId   Int
+  name      String
+  price     BigInt
+  quantity  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  event     Event    @relation("EventTickets", fields: [eventId], references: [id], onDelete: Cascade)
+}
+
+enum Role {
+  admin
+  user
 }

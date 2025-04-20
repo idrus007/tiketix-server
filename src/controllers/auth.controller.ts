@@ -214,22 +214,8 @@ exports.googleAuthCallback = async (req: Request, res: Response) => {
     );
 
     return res.redirect(
-      `http://localhost:5173/oauth-redirect?token=${token}&role=${user.role}`
+      `http://localhost:5173/oauth-redirect?token=${token}&role=${user.role}&message=Login%20successful`
     );
-    // return res.redirect('http://localhost:5173/admin/dashboard');
-
-    // return res.status(200).json({
-    //   success: true,
-    //   message: "Login successful",
-    //   data: {
-    //     user: {
-    //       id: user.id,
-    //       email: user.email,
-    //       role: user.role,
-    //     },
-    //     token,
-    //   },
-    // });
   } catch (err) {
     console.error(err);
     res.status(500).json({
